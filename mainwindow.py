@@ -1,18 +1,21 @@
 import sys
-from PySide6.QtCore import QFile
-from PySide6.QtWidgets import QApplication
-from PySide6.QtUiTools import QUiLoader
 
-app = QApplication(sys.argv)
+from PySide6.QtWidgets import QApplication, QMainWindow
 
-ui_file_name = "application.ui"
-ui_file = QFile(ui_file_name)
-loader = QUiLoader()
-window = loader.load(ui_file)
-ui_file.close()
-if not window:
-    print(loader.errorString())
-    sys.exit(-1)
-window.show()
+from application import Ui_MainWindow
 
-sys.exit(app.exec())
+
+class App(QMainWindow):
+    def __init__(self):
+        super(App, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+
+    window = App()
+    window.show()
+
+    sys.exit(app.exec())
